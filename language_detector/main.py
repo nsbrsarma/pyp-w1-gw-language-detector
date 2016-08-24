@@ -6,7 +6,6 @@ from languages import LANGUAGES
 
 
 def detect_language(text, languages=LANGUAGES):
-    original_text = text
     
     # Create dictionary with all the languages in LANGUAGES
     lang_stats = {}
@@ -19,14 +18,13 @@ def detect_language(text, languages=LANGUAGES):
     punctuation_marks = [',', '!', '.', '-', ':', ';']
     for mark in punctuation_marks:
         text.replace(mark,"")
-    
+        
     # Loop through each word and check if it is in dictionary
     for word in text.split(' '):
         for language in languages:
             if word in language['common_words']:
                 lang_stats[language['name']] += 1
                 
-
     # Loop through language count dict and determine language
     high_count = 0
     high_language = None
@@ -34,4 +32,5 @@ def detect_language(text, languages=LANGUAGES):
         if count > high_count:
             high_language = language
             high_count = count
+            
     return high_language
