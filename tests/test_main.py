@@ -31,6 +31,21 @@ class TestLanguageDetector(unittest.TestCase):
                     'bin', 'noch', 'dir', 'uns', 'sich', 'nur',
                     'einen', 'kann', 'dem'
                 ]
+            },
+            {   'name': 'English',
+                'common_words': [
+                    'the','be','to','of','and','a','in','that','have','I',
+                    'it','for','not','on','with','he','as','you','do','at',
+                    'this','but','his','by','from','they','we','say','her',
+                    'she','or','an','will','my','one','all','would','there',
+                    'their', 'whats','up','out','if','about','who','get','which',
+                    'go','me','when','make','can','like','time','no','just',
+                    'him','know','take', 'people','into','year','your','good','some',
+                    'could','them','see','other','than','then','now','look',
+                    'only','come','its','over','think','alsoback','after','use',
+                    'two','how','our','work','first','well','way','even','new',
+                    'want','because','any','these','give','day','most','us'
+                ]
             }
         ]
         self.texts = {
@@ -52,6 +67,14 @@ class TestLanguageDetector(unittest.TestCase):
                 erzielte. Inzwischen hat Messi als einziger Spieler mehr als 300
                 Erstligatore erzielt und ist damit Rekordtorschütze
                 der Primera División.
+                """,
+            "english": """
+                Atticus said to Jem one day, “I’d rather you shot at tin cans in
+                the backyard, but I know you’ll go after birds. Shoot all the
+                blue jays you want, if you can hit ‘em, but remember it’s a
+                sin to kill a mockingbird.” That was the only time I ever
+                heard Atticus say it was a sin to do something, and I asked
+                Miss Maudie about it. “Your father’s right,” she said.
                 """
         }
 
@@ -70,3 +93,11 @@ class TestLanguageDetector(unittest.TestCase):
     def test_detect_language_german_with_module_language_specification(self):
         result = detect_language(self.texts["german"], LANGUAGES)
         self.assertEqual(result.lower(), 'german')
+    
+    def test_detect_language_english_with_module_language_specification(self):
+        result = detect_language(self.texts["english"], LANGUAGES)
+        self.assertEqual(result.lower(), 'english')
+
+    def test_detect_language_english_with_our_language_specification(self):
+        result = detect_language(self.texts["english"], self.languages)
+        self.assertEqual(result.lower(), 'english')
